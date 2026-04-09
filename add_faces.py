@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 video = cv2.VideoCapture(1)     # 0 - for built in camera(laptops)  1 - for external cameras(pcs)
-facedetect = cv2.CascadeClassifier('faceid\data\haarcascade_frontalface_default.xml')
+facedetect = cv2.CascadeClassifier('data\haarcascade_frontalface_default.xml')
 
 face_data = []
 i=0
@@ -37,29 +37,30 @@ face_data = face_data.reshape(100,-1)
 
 
 
-if 'names.pkl' not in os.listdir('faceid/data/'):
+if 'names.pkl' not in os.listdir('data/'):
     names = [name] * 100
-    with open('faceid/names.pkl', 'wb') as f:
+    with open('names.pkl', 'wb') as f:
         pickle.dump(names, f)
 else:
-    with open('faceid/names.pkl', 'rb') as f:
+    with open('names.pkl', 'rb') as f:
         names = pickle.load(f)
     names = names + [name]*100
-    with open('faceid/names.pkl', 'wb') as f:
+    with open('names.pkl', 'wb') as f:
         pickle.dump(names, f)
 
 
         
-if 'faces_data.pkl' not in os.listdir('faceid/data/'):
-    with open('faceid/faces_data.pkl', "wb") as f:
+if 'faces_data.pkl' not in os.listdir('data/'):
+    with open('faces_data.pkl', "wb") as f:
         pickle.dump(face_data, f)
 else:
-    with open('faceid/faces_data.pkl', 'rb') as f:
+    with open('faces_data.pkl', 'rb') as f:
         faces = pickle.load(f)
     faces = np.append(faces, face_data, axis= 0)
-    with open('faceid/faces_data.pkl', 'wb') as f:
+    with open('faces_data.pkl', 'wb') as f:
         pickle.dump(faces, f)
 
 
 
 # THE FUCKING FAT NOTE FOR YOU FAT FUCK (even though u have underweght): YOU HAVE STOPPED AT 27:23 OF https://www.youtube.com/watch?v=BYCKvM8eZGA DO NOT FUCKING FORGET TO CHANGE THE 0 TO 1 OR WHATEVERT YK THE CAMERA BULLSHIT
+# THOSE ERRORS ARE FALSE POSITIVES 
