@@ -1,5 +1,6 @@
 import cv2
 import pickle
+import json
 import numpy as np
 import os
 
@@ -19,14 +20,14 @@ while True:
     for (x, y, w, h) in faces:
         crop_img = frame[y:y+h, x:x+w, :]
         resized_img = cv2.resize(crop_img, (50,50))
-        if len(face_data) <= 20 and i%10 == 0:          # NOTE you changed 100 to 20
+        if len(face_data) <= 100 and i%10 == 0:          # NOTE you changed 100 to 20
             face_data.append(resized_img)
         i=i+1
         cv2.putText(frame, str(len(face_data)), (50,50), cv2.FONT_HERSHEY_COMPLEX, 1, (50,50,255), 1)
         cv2.rectangle(frame, (x,y), (x+w, y+h), (50, 50, 255), 1)
     cv2.imshow("Frame", frame)
     k = cv2.waitKey(1)
-    if k==ord('q') or len(face_data) == 20:     # NOTE you change from 100 to 20
+    if k==ord('q') or len(face_data) == 100:     # NOTE you change from 100 to 20
         break
 
 video.release()
