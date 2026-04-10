@@ -1,3 +1,5 @@
+from sklearn.neighbors import KNeighboursClassifier
+
 import cv2
 import pickle
 import numpy as np
@@ -5,6 +7,9 @@ import os
 
 video = cv2.VideoCapture(0)     # 0 - for built in camera(laptops)  1 - for external cameras(pcs)
 facedetect = cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
+
+with open('names.pkl', 'rb') as f:
+    LABELS = pickle.load(f)
 
 face_data = []
 i=0
@@ -19,14 +24,14 @@ while True:
     for (x, y, w, h) in faces:
         crop_img = frame[y:y+h, x:x+w, :]
         resized_img = cv2.resize(crop_img, (50,50))
-        if len(face_data) <= 20 and i%10 == 0:          # NOTE you changed 100 to 20
+        if len(face_data) <= 10 and i%10 == 0:          # NOTE you changed 100 to 10
             face_data.append(resized_img)
         i=i+1
         cv2.putText(frame, str(len(face_data)), (50,50), cv2.FONT_HERSHEY_COMPLEX, 1, (50,50,255), 1)
         cv2.rectangle(frame, (x,y), (x+w, y+h), (50, 50, 255), 1)
     cv2.imshow("Frame", frame)
     k = cv2.waitKey(1)
-    if k==ord('q') or len(face_data) == 20:     # NOTE you change from 100 to 20
+    if k==ord('q') or len(face_data) == 10:     # NOTE you change from 100 to 10
         break
 
 video.release()
@@ -62,5 +67,5 @@ else:
 
 
 
-# THE FUCKING FAT NOTE FOR YOU FAT FUCK (even though u have underweght): YOU HAVE STOPPED AT 27:23 OF https://www.youtube.com/watch?v=BYCKvM8eZGA DO NOT FUCKING FORGET TO CHANGE THE 0 TO 1 OR WHATEVERT YK THE CAMERA BULLSHIT
+# THE FUCKING FAT NOTE FOR YOU FAT FUCK (even though u have underweght): YOU HAVE STOPPED AT 32:13 OF https://www.youtube.com/watch?v=BYCKvM8eZGA DO NOT FUCKING FORGET TO CHANGE THE 0 TO 1 OR WHATEVERT YK THE CAMERA BULLSHIT
 # THOSE ERRORS ARE FALSE POSITIVES 
