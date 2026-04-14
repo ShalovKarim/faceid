@@ -57,8 +57,7 @@ if __name__ == "__main__":
     sample_path = "sample_data.json"
     sample_data = {
         "name": "Alice",
-        "age": 30,
-        "skills": ["python", "json", "file io"]
+        "age": 30
     }
 
     create_json_file(sample_path, default={})
